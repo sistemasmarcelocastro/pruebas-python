@@ -1,0 +1,25 @@
+[1127/192705:ERROR:process_info.cc(608)] range at 0x600b435400000000, size 0x197 fully unreadable
+[1127/192705:ERROR:process_info.cc(608)] range at 0x600b43b800000000, size 0x197 fully unreadable
+[1127/192705:ERROR:process_info.cc(608)] range at 0x0, size 0x197 fully unreadable
+[1127/192705:WARNING:in_range_cast.h(38)] value 1749663028436 out of range
+[1127/192705:WARNING:in_range_cast.h(38)] value 1749663029282 out of range
+[1127/192705:WARNING:in_range_cast.h(38)] value 1749663029622 out of range
+[1127/192705:WARNING:in_range_cast.h(38)] value 1749663026718 out of range
+[1127/192705:WARNING:in_range_cast.h(38)] value 1749663026930 out of range
+[1127/192711:ERROR:process_info.cc(608)] range at 0x5db448c00000000, size 0x212 fully unreadable
+[1127/192711:ERROR:process_info.cc(608)] range at 0x5db44f200000000, size 0x212 fully unreadable
+[1127/192711:ERROR:process_info.cc(608)] range at 0x0, size 0x212 fully unreadable
+[1127/192711:ERROR:process_reader_win.cc(233)] ReadMemory at 0x7ff9299a0000 of 64 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[1127/192711:WARNING:pe_image_reader.cc(281)] could not read dos header from C:\Program Files (x86)\Google\Chrome\Application\54.0.2840.99\chrome_child.dll
+[1127/192711:WARNING:in_range_cast.h(38)] value 2276430910676 out of range
+[1127/192711:WARNING:in_range_cast.h(38)] value 2276430911522 out of range
+[1127/192711:WARNING:in_range_cast.h(38)] value 2276430911862 out of range
+[1127/192711:WARNING:in_range_cast.h(38)] value 2276430908958 out of range
+[1127/192711:WARNING:in_range_cast.h(38)] value 2276430909170 out of range
+[1127/192711:ERROR:process_reader_win.cc(233)] ReadMemory at 0x7ff77eff0000 of 64 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[1127/192711:WARNING:pe_image_reader.cc(281)] could not read dos header from C:\Program Files (x86)\Google\Chrome\Application\chrome.exe
+[1127/192711:ERROR:process_reader_win.cc(233)] ReadMemory at 0x7ff9299a0000 of 64 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[1127/192711:WARNING:pe_image_reader.cc(281)] could not read dos header from C:\Program Files (x86)\Google\Chrome\Application\54.0.2840.99\chrome_child.dll
+[1127/192711:ERROR:process_reader_win.cc(233)] ReadMemory at 0xbb844ba000 of 286720 bytes failed: Solo se completó una parte de una solicitud ReadProcessMemory o WriteProcessMemory. (0x12B)
+[1127/192711:ERROR:crash_report_exception_handler.cc(98)] WriteEverything failed
+[1127/192711:ERROR:scoped_process_suspend.cc(38)] NtResumeProcess: Se intentó obtener acceso a un proceso que está cerrándose.  (0xc000010a)
