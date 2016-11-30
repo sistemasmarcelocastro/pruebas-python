@@ -9,3 +9,4 @@ print(respuesta.raise_for_status())
 '''
 respuesta2 = requests.get('https://automasdsdtetheboringstuff.com/files/rj.txt')
 respuesta2.raise_for_status()
+print('hola')
