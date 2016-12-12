@@ -48,8 +48,8 @@ for i in range(0, len(listaIPrev)):
 
 ######SALIDA######
 # VARIABLES:
-quezona = archivo[:-4].strip()
-server = 'ns-2.%s' % (quezona)
+queZona = archivo[:-4].strip()
+server = 'ns-2.%s' % (queZona)
 root = 'admin.dc.uba.ar.'
 
 # ENCABEZADO:
@@ -70,5 +70,6 @@ for i in range(0, len(origin)):
     print(origin[i][0])
     for j in range(0, len(listaIPrev)):
         if int(listaIPrev[j][1]) == int(origin[i][1]):
-            lineaPTR = '%s\tPTR\t%s%s' % (str(listaIPrev[j][0]), str(listaINA[j][0]), quezona)
+            lineaPTR = '%s\tPTR\t%s%s' % (str(listaIPrev[j][0]), str(listaINA[j][0]), queZona)
             print(lineaPTR)
+    print(';\n;\n;')
