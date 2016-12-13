@@ -7,16 +7,21 @@ try:
     entrada = str(sys.argv[1])
     archivo = os.path.basename(entrada)
 except IndexError:
-    print('\nDebe ingresar el nombre de un archivo de zona como argumento\n')
+    print('\nDebe ingresar el nombre de un archivo de zona como parámetro\n')
+    exit()
+
+if not str(archivo).endswith('.zone'):
+    print('\nDebe ingresar un archivo de zona válido\n')
     exit()
 try:
     zona = io.open(archivo, encoding='latin-1')
 except:
-    print('\nEscriba un nombre de archivo de zona correcto\n')
+    print('\nDebe ingresar un nombre de archivo existente\n')
     exit()
 
 ######ENCUENTRA LOS REGISTROS "A"######
 listaINA = []
+
 for i in zona:
     zonaLinea = i.split()
     zonaLineaJoin = ' '.join(zonaLinea)
@@ -39,7 +44,6 @@ for i in range(0, len(listaINA)):
 origin = []
 octeto3 = 256
 for i in range(0, len(listaIPrev)):
-    # print(listaINA[i][3])
     if int(listaIPrev[i][1]) != int(octeto3):
         originLinea = '$ORIGIN %s.in-addr.arpa.' % ('.'.join(listaIPrev[i][1:]))
         originLineaTupla = (originLinea, listaIPrev[i][1])
@@ -48,7 +52,7 @@ for i in range(0, len(listaIPrev)):
 
 ######SALIDA######
 # VARIABLES:
-queZona = archivo[:-4].strip()
+queZona = archivo[:-4].strip(' ')
 server = 'ns-2.%s' % (queZona)
 root = 'admin.dc.uba.ar.'
 
