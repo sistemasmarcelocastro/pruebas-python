@@ -14,7 +14,7 @@ if not str(archivo).endswith('.zone'):
     print('\nDebe ingresar un archivo de zona válido\n')
     exit()
 try:
-    zona = io.open(archivo, encoding='latin-1')
+    zona = io.open(entrada, encoding='latin-1')
 except:
     print('\nDebe ingresar un nombre de archivo existente\n')
     exit()
@@ -50,14 +50,42 @@ for i in range(0, len(listaIPrev)):
         origin.append(originLineaTupla)
         octeto3 = listaIPrev[i][1]
 
+######EXTRAE EL ENCABEZADO DEL REVERSO ACTUAL######
+buscar = 'NS'
+lineaFinalEnc = 0
+zonaReversa = entrada + '.rev'
+origen = io.open(zonaReversa, encoding='latin-1')
+enum = enumerate(origen, 1)
+for num, linea in enum:
+    if buscar in linea:
+        lineaFinalEnc = num
+origen.close()
+origen = io.open(zonaReversa, encoding='latin-1')
+listaOrigen = origen.read().split(sep='\n')
+origen.close()
+
 ######SALIDA######
 # VARIABLES:
 queZona = archivo[:-4].strip(' ')
-server = 'ns-2.%s' % (queZona)
-root = 'admin.dc.uba.ar.'
 
 # ENCABEZADO:
-print('''
+for i in range(0, lineaFinalEnc):
+    #if 'serial' in listaOrigen[i]:
+     #   pass
+    #else:
+    print(listaOrigen[i])
+print('\n\n\n')
+# ORIGIN Y PTR:
+for i in range(0, len(origin)):
+    print(origin[i][0])
+    for j in range(0, len(listaIPrev)):
+        if int(listaIPrev[j][1]) == int(origin[i][1]):
+            lineaPTR = '%s\tPTR\t%s%s' % (str(listaIPrev[j][0]), str(listaINA[j][0]), queZona)
+            print(lineaPTR)
+    print(';\n;\n;')
+
+'''
+print(''''''
 $TTL    600;
 @	IN	SOA		%s	%s(
 				2014122200	;serial ->formato yyyymmddxx
@@ -67,13 +95,4 @@ $TTL    600;
 				600)
 	IN	NS		ns-1.dmz.dc.uba.ar.
 	IN	NS		ns-2.dmz.dc.uba.ar.
-''' % (server, root))
-
-# ORIGIN Y PTR:
-for i in range(0, len(origin)):
-    print(origin[i][0])
-    for j in range(0, len(listaIPrev)):
-        if int(listaIPrev[j][1]) == int(origin[i][1]):
-            lineaPTR = '%s\tPTR\t%s%s' % (str(listaIPrev[j][0]), str(listaINA[j][0]), queZona)
-            print(lineaPTR)
-    print(';\n;\n;')
+ % (server, root))'''
