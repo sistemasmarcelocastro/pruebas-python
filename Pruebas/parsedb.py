@@ -75,7 +75,7 @@ serialNuevo = 0
 acumulativo = 0
 fechaActual = time.strftime('%y%m%d')
 for i in range(0, lineaFinalEnc):
-    if 'serial' in listaOrigen[i]:                      ### Reemplaza el serial.
+    if 'serial' in listaOrigen[i]:                                  ### Reemplaza el serial.
         for j in range(0, len(str(listaOrigen[i]))):
             if str(listaOrigen[i])[j].isdigit():
                 indice = j
