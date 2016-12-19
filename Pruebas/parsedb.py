@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import io, sys, os
+import io, sys, os, time
 
 ######ABRE EL ARCHIVO DE ZONA######
 try:
@@ -54,27 +54,43 @@ for i in range(0, len(listaIPrev)):
 buscar = 'NS'
 lineaFinalEnc = 0
 zonaReversa = entrada + '.rev'
-origen = io.open(zonaReversa, encoding='latin-1')
-enum = enumerate(origen, 1)
+reversaOriginal = io.open(zonaReversa, encoding='latin-1')
+enum = enumerate(reversaOriginal, 1)
 for num, linea in enum:
     if buscar in linea:
         lineaFinalEnc = num
-origen.close()
-origen = io.open(zonaReversa, encoding='latin-1')
-listaOrigen = origen.read().split(sep='\n')
-origen.close()
+reversaOriginal.close()
+reversaOriginal = io.open(zonaReversa, encoding='latin-1')
+listaOrigen = reversaOriginal.read().split(sep='\n')
+reversaOriginal.close()
 
 ######SALIDA######
 # VARIABLES:
 queZona = archivo[:-4].strip(' ')
 
 # ENCABEZADO:
+indice = 0
+serialViejo = 0
+serialNuevo = 0
+acumulativo = 0
+fechaActual = time.strftime('%y%m%d')
 for i in range(0, lineaFinalEnc):
-    #if 'serial' in listaOrigen[i]:
-     #   pass
-    #else:
-    print(listaOrigen[i])
+    if 'serial' in listaOrigen[i]:                      ### Reemplaza el serial.
+        for j in range(0, len(str(listaOrigen[i]))):
+            if str(listaOrigen[i])[j].isdigit():
+                indice = j
+                break
+        indiceFinal = indice + 9
+        serialViejo = str(listaOrigen[i])[indice:indiceFinal]
+        if serialViejo[:-2] == fechaActual:
+            serialNuevo = int(serialViejo) + 1
+        else:
+            serialNuevo = str(fechaActual) + '00'
+        print(str(listaOrigen[i]).replace(serialViejo, serialNuevo))
+    else:
+        print(listaOrigen[i])
 print('\n\n\n')
+
 # ORIGIN Y PTR:
 for i in range(0, len(origin)):
     print(origin[i][0])
@@ -83,16 +99,3 @@ for i in range(0, len(origin)):
             lineaPTR = '%s\tPTR\t%s%s' % (str(listaIPrev[j][0]), str(listaINA[j][0]), queZona)
             print(lineaPTR)
     print(';\n;\n;')
-
-'''
-print(''''''
-$TTL    600;
-@	IN	SOA		%s	%s(
-				2014122200	;serial ->formato yyyymmddxx
-				3600
-				300
-				360000
-				600)
-	IN	NS		ns-1.dmz.dc.uba.ar.
-	IN	NS		ns-2.dmz.dc.uba.ar.
- % (server, root))'''
