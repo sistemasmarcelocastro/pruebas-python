@@ -9,14 +9,14 @@ try:
 except IndexError:
     print('\nDebe ingresar el nombre de un archivo de zona como parámetro\n')
     exit()
-
 if not str(archivo).endswith('.zone'):
     print('\nDebe ingresar un archivo de zona válido\n')
     exit()
+
 try:
     zona = io.open(entrada, encoding='latin-1')
 except:
-    print('\nDebe ingresar un nombre de archivo existente\n')
+    print('\nDebe ingresar un nombre de archivo de zona existente\n')
     exit()
 
 ######ENCUENTRA LOS REGISTROS "A"######
@@ -25,7 +25,7 @@ listaINA = []
 for i in zona:
     zonaLinea = i.split()
     zonaLineaJoin = ' '.join(zonaLinea)
-    if 'IN A' in zonaLineaJoin and str(zonaLineaJoin[0]) != ';':
+    if 'IN A' in zonaLineaJoin and not str(zonaLineaJoin).startswith(';') and not str(zonaLineaJoin).startswith('IN'):
         listaINA.append(zonaLinea)
 
 ######CIERRA EL ARCHIVO DE ZONA######
@@ -41,6 +41,7 @@ for i in range(0, len(listaINA)):
     listaIPrev.append(listaIPrevParte)
 
 ######ARMA LOS ORIGIN######
+
 origin = []
 octeto3 = 256
 for i in range(0, len(listaIPrev)):
@@ -53,8 +54,16 @@ for i in range(0, len(listaIPrev)):
 ######EXTRAE EL ENCABEZADO DEL REVERSO ACTUAL######
 buscar = 'NS'
 lineaFinalEnc = 0
-zonaReversa = entrada + '.rev'
-reversaOriginal = io.open(zonaReversa, encoding='latin-1')
+
+if len(sys.argv) < 3:
+    zonaReversa = entrada + '.rev'
+else:
+    zonaReversa = str(sys.argv[2])
+try:
+    reversaOriginal = io.open(zonaReversa, encoding='latin-1')
+except:
+    print('\nDebe ingresar un nombre de archivo reverso existente\n')
+    exit()
 enum = enumerate(reversaOriginal, 1)
 for num, linea in enum:
     if buscar in linea:
@@ -75,7 +84,7 @@ serialNuevo = 0
 acumulativo = 0
 fechaActual = time.strftime('%y%m%d')
 for i in range(0, lineaFinalEnc):
-    if 'serial' in listaOrigen[i]:                                  ### Reemplaza el serial.
+    if 'serial' in listaOrigen[i]:  ### Reemplaza el serial.
         for j in range(0, len(str(listaOrigen[i]))):
             if str(listaOrigen[i])[j].isdigit():
                 indice = j
