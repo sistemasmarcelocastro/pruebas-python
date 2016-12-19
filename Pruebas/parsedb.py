@@ -41,15 +41,18 @@ for i in range(0, len(listaINA)):
     listaIPrev.append(listaIPrevParte)
 
 ######ARMA LOS ORIGIN######
-
-origin = []
-octeto3 = 256
+origin = []         ############## NO FUNCIONA, PROBAR ARMAR UN DICCIONARIO CON LOS ORIGINS QUE SE VAN ARMANDO PARA NO REPETIRLOS
+octeto3 = ''
 for i in range(0, len(listaIPrev)):
-    if int(listaIPrev[i][1]) != int(octeto3):
-        originLinea = '$ORIGIN %s.in-addr.arpa.' % ('.'.join(listaIPrev[i][1:]))
+    soloIP = '.'.join(listaIPrev[i][1:])
+    print(soloIP)
+    if soloIP != str(octeto3):
+    #if int(listaIPrev[i][1]) != int(octeto3):
+        originLinea = '$ORIGIN %s.in-addr.arpa.' % (soloIP)
         originLineaTupla = (originLinea, listaIPrev[i][1])
         origin.append(originLineaTupla)
-        octeto3 = listaIPrev[i][1]
+        octeto3 = soloIP
+        #octeto3 = listaIPrev[i][1]
 
 ######EXTRAE EL ENCABEZADO DEL REVERSO ACTUAL######
 buscar = 'NS'
