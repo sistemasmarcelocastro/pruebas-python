@@ -21,7 +21,6 @@ except:
 
 ######ENCUENTRA LOS REGISTROS "A"######
 listaINA = []
-
 for i in zona:
     zonaLinea = i.split()
     zonaLineaJoin = ' '.join(zonaLinea)
@@ -41,18 +40,15 @@ for i in range(0, len(listaINA)):
     listaIPrev.append(listaIPrevParte)
 
 ######ARMA LOS ORIGIN######
-origin = []         ############## NO FUNCIONA, PROBAR ARMAR UN DICCIONARIO CON LOS ORIGINS QUE SE VAN ARMANDO PARA NO REPETIRLOS
-octeto3 = ''
+origin = []
+originSubredesLista = []
 for i in range(0, len(listaIPrev)):
     soloIP = '.'.join(listaIPrev[i][1:])
-    print(soloIP)
-    if soloIP != str(octeto3):
-    #if int(listaIPrev[i][1]) != int(octeto3):
+    if soloIP not in originSubredesLista:
         originLinea = '$ORIGIN %s.in-addr.arpa.' % (soloIP)
         originLineaTupla = (originLinea, listaIPrev[i][1])
         origin.append(originLineaTupla)
-        octeto3 = soloIP
-        #octeto3 = listaIPrev[i][1]
+        originSubredesLista.append(soloIP)
 
 ######EXTRAE EL ENCABEZADO DEL REVERSO ACTUAL######
 buscar = 'NS'
@@ -77,9 +73,6 @@ listaOrigen = reversaOriginal.read().split(sep='\n')
 reversaOriginal.close()
 
 ######SALIDA######
-# VARIABLES:
-queZona = archivo[:-4].strip(' ')
-
 # ENCABEZADO:
 indice = 0
 serialViejo = 0
@@ -104,10 +97,11 @@ for i in range(0, lineaFinalEnc):
 print('\n\n\n')
 
 # ORIGIN Y PTR:
+queZona = os.path.basename(zonaReversa)[:-8].strip(' ')
 for i in range(0, len(origin)):
     print(origin[i][0])
     for j in range(0, len(listaIPrev)):
         if int(listaIPrev[j][1]) == int(origin[i][1]):
-            lineaPTR = '%s\tPTR\t%s%s' % (str(listaIPrev[j][0]), str(listaINA[j][0]), queZona)
+            lineaPTR = '%s\tPTR\t%s.%s' % (str(listaIPrev[j][0]), str(listaINA[j][0]), queZona)
             print(lineaPTR)
     print(';\n;\n;')
